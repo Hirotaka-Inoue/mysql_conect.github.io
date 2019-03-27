@@ -51,5 +51,17 @@ class Conect_DB{
         }
         $add = $this->db->query('INSERT INTO '. $dbtable .' values('. $str_data .')');            
     }
+    public function delete($db_table,$del_calam,$del_data){
+        //カラム1に対して該当したものを削除する
+        $del = $this->db ->prepare('DELETE FROM :dbtable WHERE :delcalam=:deldata');
+        $del ->bindParam(':dbtable',$db_table);
+        $del ->bindParam(':delcalam',$del_calam);
+        $del ->bindParam(':deldata',$del_data);        
+        $del ->execute();
+        }
+    public function drop_table($dbtable){
+        //テーブルの削除
+        $dro = $this->db ->query('DROP TABLE '.$dbtable);
+    }
 }
-?>
+
